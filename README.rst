@@ -1,4 +1,5 @@
-# Python Client for the WhatsApp Business API
+Python Client for the WhatsApp Business API
+===========================================
 
 This work is extracted from Praekelt PBC's work on MomConnect and WhatsApp.
 See the `blog post`_ for more details.
