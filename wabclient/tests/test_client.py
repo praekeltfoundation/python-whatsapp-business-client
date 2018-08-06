@@ -115,13 +115,14 @@ class ClientTest(WhatsAppClientTest):
                 to="to_addr",
                 namespace="namespace",
                 element_name="element_name",
-                fallback_lg="en",
+                language_code="en",
+                language_policy="fallback",
                 localizable_params=[{"default": "10"}],
             ))
 
         self.client.send_hsm(
             "to_addr", namespace="namespace", element_name="element_name",
-            fallback_lg="en", params=[{"default": "10"}])
+            language_code="en", params=[{"default": "10"}])
 
     @responses.activate
     def test_send_message(self):

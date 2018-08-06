@@ -83,7 +83,6 @@ class TextCommand(BaseCommand):
             }
         }
 
-
 @attr.s
 class HSMCommand(BaseCommand):
     command_method = POST
@@ -92,9 +91,12 @@ class HSMCommand(BaseCommand):
     to = attr.ib()
     namespace = attr.ib()
     element_name = attr.ib()
-    fallback_lg = attr.ib()
+    language_code = attr.ib()
+    language_policy = attr.ib(
+        default="fallback",
+        validator=attr.validators.in_(["fallback", "deterministic"]))
+
     localizable_params = attr.ib(default=attr.Factory(list))
-    fallback_lc = attr.ib(default=None)
 
     def render(self):
         return {
@@ -103,8 +105,10 @@ class HSMCommand(BaseCommand):
             "hsm": {
                 "namespace": self.namespace,
                 "element_name": self.element_name,
-                "fallback_lg": self.fallback_lg,
-                "fallback_lc": self.fallback_lc,
+                "language": {
+                    "code": self.language_code,
+                    "policy": self.language_policy
+                },
                 "localizable_params": self.localizable_params,
             }
         }
