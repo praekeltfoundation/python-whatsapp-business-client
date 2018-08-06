@@ -710,8 +710,8 @@ class Client(object):
                 render_mentions=render_mentions))
 
     def send_hsm(
-            self, to_addr, namespace, element_name, fallback_lg, params,
-            fallback_lc=None, check_address=False):
+            self, to_addr, namespace, element_name, language_code, params,
+            language_policy="fallback", check_address=False):
         """
         :param str to_addr:
             The WhatsApp ID
@@ -719,10 +719,10 @@ class Client(object):
             The HSM namespace
         :param str element_name:
             The HSM element name
-        :param str fallback_lg:
-            The HSM fallback language
-        :param str fallback_lc:
-            The optional HSM fallback locale
+        :param str language_code:
+            The HSM language
+        :param str language_policy:
+            The HSM policy, "fallback" (default) or "deterministic"
         :param list params:
             A list with {"default | currency | date_time" => "value"} pairs
             which can be used for localisation
@@ -735,8 +735,8 @@ class Client(object):
                 to=self.get_address(to_addr) if check_address else to_addr,
                 namespace=namespace,
                 element_name=element_name,
-                fallback_lg=fallback_lg,
-                fallback_lc=fallback_lc,
+                language_code=language_code,
+                language_policy=language_policy,
                 localizable_params=params))
 
     def healthcheck(self):
