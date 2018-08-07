@@ -220,7 +220,7 @@ class ClientTest(WhatsAppClientTest):
             RegistrationCommand(
                 cc='27',
                 phone_number='123456789',
-                vname_cert='vname',
+                cert='vname',
                 method=RegistrationCommand.SMS,
             ), {
                 "account": [{

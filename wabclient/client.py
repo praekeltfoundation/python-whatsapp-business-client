@@ -303,7 +303,7 @@ class ConfigurationManager(object):
                 cc=str(pn.country_code),
                 phone_number=str(pn.national_number),
                 method=method,
-                vname_cert=vname))
+                cert=vname))
         return data['account'][0]
 
     def register(self, code):
