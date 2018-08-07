@@ -214,7 +214,7 @@ class RegistrationCommand(BaseCommand):
     cc = attr.ib(type=str)
     phone_number = attr.ib(type=str)
     method = attr.ib(validator=attr.validators.in_([SMS, VOICE]))
-    vname_cert = attr.ib(type=str)
+    cert = attr.ib(type=str)
     pin = attr.ib(default=None, type=str)
 
     def render(self):
