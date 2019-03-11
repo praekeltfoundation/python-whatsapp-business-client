@@ -40,7 +40,11 @@ def main():
 def send(token, namespace, name, param, rate_limit, base_url, dry_run, csv_file):
     session = requests.Session()
     session.headers.update(
-        {"Authorization": "Bearer %s" % (token,), "Content-Type": "application/json"}
+        {
+            "User-Agent": "WABClient/CLI",
+            "Authorization": "Bearer %s" % (token,),
+            "Content-Type": "application/json",
+        }
     )
 
     localizable_params = [{"default": p} for p in param]
@@ -62,7 +66,7 @@ def send(token, namespace, name, param, rate_limit, base_url, dry_run, csv_file)
 
         if not dry_run:
             try:
-                response = session.post(base_url, data=json.dumps(payload))
+                response = session.post(base_url, timeout=5, data=json.dumps(payload))
                 response.raise_for_status()
                 click.echo(click.style(record, fg="green"))
             except requests.exceptions.HTTPError:
