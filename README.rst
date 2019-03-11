@@ -18,7 +18,7 @@ Also has some support for sending message templates in bulk.
     $ pip install wabclient
     $ wabclient send --help
     $ wabclient send \
-        -csv-file wa_ids.csv \
+        --csv-file wa_ids.csv \
         --token your-auth-token \
         --namespace the-namespace \
         --name the-element-name \
