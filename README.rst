@@ -15,7 +15,7 @@ Also has some support for sending message templates in bulk.
 
 .. code::
 
-    $ pip install wabclient
+    $ pip install wabclient[cli]
     $ wabclient send --help
     $ wabclient send \
         --csv-file wa_ids.csv \
