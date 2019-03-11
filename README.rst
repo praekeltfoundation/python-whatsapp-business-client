@@ -10,3 +10,18 @@ See the `blog post`_ for more details.
 This does not work with a normal WhatsApp account, only the WhatsApp Business API.
 
 .. _blog post: https://medium.com/mobileforgood/praekelt-org-pilots-whatsapp-for-social-impact-19a336f5b04e
+
+Also has some support for sending message templates in bulk.
+
+.. code::
+
+    $ pip install wabclient
+    $ wabclient send --help
+    $ wabclient send \
+        --csv-file wa_ids.csv \
+        --token your-auth-token \
+        --namespace the-namespace \
+        --name the-element-name \
+        --rate-limit 60\60 \ 
+        --param "the first HSM template default param" \
+        --param "the second HSM template default param"
