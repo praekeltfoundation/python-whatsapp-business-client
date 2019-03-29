@@ -120,7 +120,7 @@ class Connection(object):
 class Group(object):
     id = attr.ib(type=str)
     creation_time = attr.ib(
-        type=int, default=None, convert=datetime.fromtimestamp)
+        type=int, default=None, converter=datetime.fromtimestamp)
     subject = attr.ib(type=str, default=None)
     creator = attr.ib(type=str, default=None)
     admins = attr.ib(default=attr.Factory(list))

@@ -70,7 +70,7 @@ def send(token, namespace, name, param, rate_limit, base_url, dry_run, csv_file)
                 response.raise_for_status()
                 click.echo(click.style(record, fg="green"))
             except requests.exceptions.HTTPError:
-                click.echo(click.style(record, fg="red"))
+                click.echo(click.style(record, fg="red"), err=True)
         else:
             click.echo(click.style(record, fg="green"))
 
