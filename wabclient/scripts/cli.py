@@ -27,6 +27,8 @@ def main():
 @click.option("--token", "-t", type=click.STRING, envvar="WABCLIENT_TOKEN")
 @click.option("--namespace", "-ns", type=click.STRING)
 @click.option("--name", "-n", type=click.STRING)
+@click.option("--language", "-l", type=click.STRING, default="en")
+@click.option("--policy", "-pl", type=click.STRING, default="fallback")
 @click.option("--param", "-p", type=click.STRING, multiple=True)
 @click.option("--rate-limit", "-r", default="60/60", type=RateLimitType())
 @click.option("--dry-run/--no-dry-run")
@@ -37,7 +39,18 @@ def main():
     type=click.STRING,
 )
 @click.option("--csv-file", "-f", type=click.File("r"))
-def send(token, namespace, name, param, rate_limit, base_url, dry_run, csv_file):
+def send(
+    token,
+    namespace,
+    name,
+    language,
+    policy,
+    param,
+    rate_limit,
+    base_url,
+    dry_run,
+    csv_file,
+):
     session = requests.Session()
     session.headers.update(
         {
@@ -59,7 +72,7 @@ def send(token, namespace, name, param, rate_limit, base_url, dry_run, csv_file)
             "hsm": {
                 "namespace": namespace,
                 "element_name": name,
-                "language": {"policy": "fallback", "code": "en"},
+                "language": {"policy": policy, "code": language},
                 "localizable_params": localizable_params,
             },
         }
