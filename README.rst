@@ -25,3 +25,8 @@ Also has some support for sending message templates in bulk.
         --rate-limit 60\60 \ 
         --param "the first HSM template default param" \
         --param "the second HSM template default param"
+
+The CSV file should list the WA ids, one per line. WA ids are generally in the E.164 format without a leading plus.
+If you're getting errors adding the `--debug` flag will print the JSON error response from the API to stderr.
+
+For WA ids that were sent to successfully will be print in green to `stdout`, WA ids that are invalid will print to `stderr` in red.
