@@ -32,6 +32,7 @@ def main():
 @click.option("--param", "-p", type=click.STRING, multiple=True)
 @click.option("--rate-limit", "-r", default="60/60", type=RateLimitType())
 @click.option("--dry-run/--no-dry-run")
+@click.option("--debug/--no-debug", "-d", default=False)
 @click.option(
     "--base-url",
     "-b",
@@ -47,6 +48,7 @@ def send(
     policy,
     param,
     rate_limit,
+    debug,
     base_url,
     dry_run,
     csv_file,
@@ -82,8 +84,20 @@ def send(
                 response = session.post(base_url, timeout=5, data=json.dumps(payload))
                 response.raise_for_status()
                 click.echo(click.style(record, fg="green"))
-            except requests.exceptions.HTTPError:
-                click.echo(click.style(record, fg="red"), err=True)
+            except requests.exceptions.HTTPError as exception:
+                if debug:
+                    click.echo(
+                        "%s, %s"
+                        % (
+                            click.style(record, fg="red"),
+                            click.style(
+                                json.dumps(exception.response.json()), fg="yellow"
+                            ),
+                        ),
+                        err=True,
+                    )
+                else:
+                    click.echo(click.style(record, fg="red"), err=True)
         else:
             click.echo(click.style(record, fg="green"))
 
