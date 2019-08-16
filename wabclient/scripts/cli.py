@@ -24,6 +24,43 @@ def main():
 
 
 @main.command()
+@click.option("--number", "-nr", type=click.STRING)
+@click.option("--token", "-t", type=click.STRING, envvar="WABCLIENT_TOKEN")
+@click.option("--name", "-n", type=click.STRING)
+@click.option("--language", "-l", type=click.STRING, default="en")
+@click.option("--category", "-c", type=click.STRING, default="ALERT_UPDATE")
+@click.option("--template", "-m", type=click.STRING)
+@click.option(
+    "--base-url", "-b", default="https://whatsapp.praekelt.org/v3.3", type=click.STRING
+)
+def create(number, token, name, language, category, template, base_url):
+    session = requests.Session()
+    session.headers.update(
+        {
+            "User-Agent": "WABClient/CLI",
+            "Authorization": "Bearer %s" % (token,),
+            "Content-Type": "application/json",
+        }
+    )
+
+    payload = {
+        "category": category,
+        "components": json.dumps([{"type": "BODY", "text": template}]),
+        "name": name.lower(),
+        "language": language,
+    }
+
+    response = session.post(
+        "%s/%s/message_templates" % (base_url, number),
+        timeout=5,
+        data=json.dumps(payload),
+    )
+    response.raise_for_status()
+    data = response.json()
+    click.echo(click.style("Template created: %(id)s" % data, fg="green"))
+
+
+@main.command()
 @click.option("--token", "-t", type=click.STRING, envvar="WABCLIENT_TOKEN")
 @click.option("--namespace", "-ns", type=click.STRING)
 @click.option("--name", "-n", type=click.STRING)
