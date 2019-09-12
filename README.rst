@@ -11,11 +11,18 @@ This does not work with a normal WhatsApp account, only the WhatsApp Business AP
 
 .. _blog post: https://medium.com/mobileforgood/praekelt-org-pilots-whatsapp-for-social-impact-19a336f5b04e
 
-Also has some support for sending message templates in bulk.
+Also has some support for creating message templates and sending message templates in bulk.
 
 .. code::
 
     $ pip install wabclient[cli]
+    $ wabclient create --help
+    $ wabclient create \
+        --number <your number without leading + like `27123456789`> \
+        --token <your auth token> \
+        --name <template name> \
+        --template <template>
+        
     $ wabclient send --help
     $ wabclient send \
         --csv-file wa_ids.csv \
