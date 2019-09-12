@@ -30,10 +30,11 @@ def main():
 @click.option("--language", "-l", type=click.STRING, default="en")
 @click.option("--category", "-c", type=click.STRING, default="ALERT_UPDATE")
 @click.option("--template", "-m", type=click.STRING)
+@click.option("--debug/--no-debug", "-d", default=False)
 @click.option(
     "--base-url", "-b", default="https://whatsapp.praekelt.org/v3.3", type=click.STRING
 )
-def create(number, token, name, language, category, template, base_url):
+def create(number, token, name, language, category, template, debug, base_url):
     session = requests.Session()
     session.headers.update(
         {
@@ -55,9 +56,22 @@ def create(number, token, name, language, category, template, base_url):
         timeout=5,
         data=json.dumps(payload),
     )
-    response.raise_for_status()
-    data = response.json()
-    click.echo(click.style("Template created: %(id)s" % data, fg="green"))
+    try:
+        response.raise_for_status()
+        data = response.json()
+        click.echo(click.style("Template created: %(id)s" % data, fg="green"))
+    except requests.exceptions.HTTPError as exception:
+        if debug:
+            click.echo(
+                "%s, %s"
+                % (
+                    click.style(payload, fg="red"),
+                    click.style(json.dumps(exception.response.json()), fg="yellow"),
+                ),
+                err=True,
+            )
+        else:
+            click.echo(click.style(payload, fg="green"))
 
 
 @main.command()
