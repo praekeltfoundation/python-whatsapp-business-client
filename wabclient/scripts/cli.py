@@ -65,13 +65,13 @@ def create(number, token, name, language, category, template, debug, base_url):
             click.echo(
                 "%s, %s"
                 % (
-                    click.style(payload, fg="red"),
+                    click.style(json.dumps(payload), fg="red"),
                     click.style(json.dumps(exception.response.json()), fg="yellow"),
                 ),
                 err=True,
             )
         else:
-            click.echo(click.style(payload, fg="green"))
+            click.echo(click.style(json.dumps(payload), fg="green"))
 
 
 @main.command()
