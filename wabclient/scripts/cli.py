@@ -5,6 +5,13 @@ import csv
 import requests
 
 
+class PhoneNumberType(click.ParamType):
+    name = "phone_number"
+
+    def convert(self, value, param, ctx):
+        return value.lstrip("+")
+
+
 class RateLimitType(click.ParamType):
     name = "rate_limit"
 
@@ -24,7 +31,7 @@ def main():
 
 
 @main.command()
-@click.option("--number", "-nr", type=click.STRING)
+@click.option("--number", "-nr", type=PhoneNumberType())
 @click.option("--token", "-t", type=click.STRING, envvar="WABCLIENT_TOKEN")
 @click.option("--name", "-n", type=click.STRING)
 @click.option("--language", "-l", type=click.STRING, default="en")
@@ -63,15 +70,22 @@ def create(number, token, name, language, category, template, debug, base_url):
     except requests.exceptions.HTTPError as exception:
         if debug:
             click.echo(
-                "%s, %s"
+                "%s: %s"
                 % (
-                    click.style(json.dumps(payload), fg="red"),
-                    click.style(json.dumps(exception.response.json()), fg="yellow"),
+                    click.style(repr(exception.response), fg="yellow"),
+                    click.style(repr(payload), fg="red"),
                 ),
                 err=True,
             )
         else:
-            click.echo(click.style(json.dumps(payload), fg="green"))
+            click.echo(
+                click.style(
+                    "Failed to create template, response code: %s"
+                    % (exception.response.status_code,),
+                    fg="yellow",
+                ),
+                err=True,
+            )
 
 
 @main.command()
