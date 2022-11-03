@@ -1,0 +1,24 @@
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+<channel>
+<title>WhatsApp Business API Status</title>
+<link>https://metastatus.com/whatsapp-business-api</link>
+<atom:link href="https://metastatus.com/outage-events-feed-waba.rss" rel="self" type="application/rss+xml"/>
+<description>Status updates for WhatsApp Business API</description>
+<lastBuildDate>Mon, 31 Oct 2022 23:52:16 GMT</lastBuildDate>
+<item>
+<title>[Major disruptions]: WhatsApp Business Account Management</title>
+<link>https://metastatus.com/whatsapp-business-api</link>
+<guid isPermaLink="false">WhatsApp Business Account Management update at: Sat, 29 Oct 2022 17:44:00 GMT</guid>
+<description>We are aware of an issue that may be impacting managing shared credit lines. Our engineering teams are actively looking to resolve the issue as quickly as possible.</description>
+<pubDate>Sat, 29 Oct 2022 17:44:00 GMT</pubDate>
+</item>
+<item>
+<title>[Resolved]: Cloud API</title>
+<link>https://metastatus.com/whatsapp-business-api</link>
+<guid isPermaLink="false">Cloud API update at: Mon, 31 Oct 2022 23:52:16 GMT</guid>
+<description>Message loss reported earlier has been resolved.</description>
+<pubDate>Mon, 31 Oct 2022 23:52:16 GMT</pubDate>
+</item>
+</channel>
+</rss>
